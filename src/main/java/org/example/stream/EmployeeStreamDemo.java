@@ -77,29 +77,42 @@ public class EmployeeStreamDemo {
 
         // Query 9 : Who has the most working experience in the organization?
         method9();
+        Optional<Employee> min1 = employeeList.stream().min(Comparator.comparingInt(Employee::getYearOfJoining));
         System.out.println("\n");
+
         // Query 10 : How many male and female employees are there in the sales and
         // marketing team?
         method10();
+        Map<String, Long> sales = employeeList.stream().filter(e -> e.getDepartment().equalsIgnoreCase("Sales")).collect(Collectors.groupingBy(Employee::getGender, Collectors.counting()));
         System.out.println("\n");
+
         // Query 11 : What is the average salary of male and female employees?
         method11();
+        Map<String, Double> collect6 = employeeList.stream().collect(Collectors.groupingBy(Employee::getGender, Collectors.averagingDouble(Employee::getSalary)));
         System.out.println("\n");
+
         // Query 12 : List down the names of all employees in each department?
         method12();
+        employeeList.stream().collect(Collectors.groupingBy(Employee::getDepartment));
         System.out.println("\n");
+
         // Query 13 : What is the average salary and total salary of the whole
         // organization?
         method13();
+        DoubleSummaryStatistics collect7 = employeeList.stream().collect(Collectors.summarizingDouble(Employee::getSalary));
+        collect7.getAverage(); collect7.getSum();
         System.out.println("\n");
+
         // Query 14 : Separate the employees who are younger or equal to 25 years from
         // those employees who are older than 25 years.
         method14();
+        Map<Boolean, List<Employee>> collect8 = employeeList.stream().collect(Collectors.partitioningBy(e -> e.getAge() > 25));
         System.out.println("\n");
+
         // Query 15 : Who is the oldest employee in the organization? What is his age
         // and which department he belongs to?
         method15();
-
+        Employee employee1 = employeeList.stream().max(Comparator.comparingInt(Employee::getAge)).get();
     }
 
     public static void method1() {
