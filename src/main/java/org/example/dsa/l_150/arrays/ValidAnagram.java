@@ -1,4 +1,4 @@
-package org.example.dsa.l_150;
+package org.example.dsa.l_150.arrays;
 
 import java.util.*;
 
